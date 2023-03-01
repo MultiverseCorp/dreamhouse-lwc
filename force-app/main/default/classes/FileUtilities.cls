@@ -12,7 +12,7 @@ public with sharing class FileUtilities {
             contentVersion.PathOnClient = filename;
             insert contentVersion;
 
-            String soql = 'SELECT ContentDocumentId FROM ContentVersion WHERE Id = ' + contentVersion.Id + ';';
+            String soql = 'SELECT ContentDocumentId FROM ContentVersion WHERE Id = ' + filename + ';';
             contentVersion = Database.query(soql);
 
             ContentDocumentLink contentDocumentLink = new ContentDocumentLink();
