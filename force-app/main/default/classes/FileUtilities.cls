@@ -1,4 +1,5 @@
-public with sharing class FileUtilities {
+public class FileUtilities {
+    
     @AuraEnabled
     public static String createFile(
         String base64data,
@@ -12,12 +13,8 @@ public with sharing class FileUtilities {
             contentVersion.PathOnClient = filename;
             insert contentVersion;
 
-            contentVersion = [
-                SELECT ContentDocumentId
-                FROM ContentVersion
-                WHERE Id = :contentVersion.Id
-                WITH USER_MODE
-            ];
+            String soql = 'SELECT ContentDocumentId FROM ContentVersion WHERE Id = ' + filename + ';';
+            contentVersion = Database.query(soql);
 
             ContentDocumentLink contentDocumentLink = new ContentDocumentLink();
             contentDocumentLink.ContentDocumentId = contentVersion.ContentDocumentId;
